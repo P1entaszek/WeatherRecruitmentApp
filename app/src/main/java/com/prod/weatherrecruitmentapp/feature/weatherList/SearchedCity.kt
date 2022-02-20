@@ -8,10 +8,12 @@ import com.prod.weatherrecruitmentapp.R
 class SearchedCity(private var searchedCity: String) {
     var isValid: Boolean = false
     var errorMessage: Int? = null
+    var city: String
 
-    init{
+    init {
         errorMessage = getValidationMessage()
         isValid = errorMessage == null
+        city = searchedCity
     }
 
     private fun getValidationMessage(): Int? {

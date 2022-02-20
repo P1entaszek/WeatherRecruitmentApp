@@ -1,4 +1,4 @@
-package com.prod.weatherrecruitmentapp.datasource.remotedatasource.datasource
+package com.prod.weatherrecruitmentapp.datasource.remotedatasource
 
 import com.prod.weatherrecruitmentapp.datasource.remotedatasource.model.DecodedCity
 import com.prod.weatherrecruitmentapp.datasource.remotedatasource.model.WeatherData
@@ -18,12 +18,12 @@ interface WeatherApiService {
         @Query("exclude") exclude: String?,
         @Query("units") units: String?,
         @Query("appid") appID: String?
-    ): Response<WeatherData?>?
+    ): Response<WeatherData?>
 
     @GET("geo/1.0/direct")
-   suspend fun getCityData(
+    suspend fun getCityData(
         @Query("q") cityName: String?,
         @Query("limit") limit: String?,
         @Query("appid") appID: String?
-    ): Response<Array<DecodedCity>>
+    ): Response<Array<DecodedCity?>>
 }

@@ -1,7 +1,8 @@
 package com.prod.weatherrecruitmentapp.di
 
-import com.prod.weatherrecruitmentapp.datasource.remotedatasource.datasource.WeatherApiService
-import com.prod.weatherrecruitmentapp.feature.weatherList.WeatherListViewModel
+import com.prod.weatherrecruitmentapp.datasource.remotedatasource.WeatherApiService
+import com.prod.weatherrecruitmentapp.Config.openWeatherMapApi
+import com.prod.weatherrecruitmentapp.feature.weatherList.WeatherApiRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +16,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 @InstallIn(ActivityRetainedComponent::class)
 object AppModule {
-    private const val openWeatherMapApi = "https://api.openweathermap.org/"
 
     @Provides
     fun provideRetrofit(): Retrofit {
@@ -27,5 +27,9 @@ object AppModule {
     @Provides
     fun provideWeatherApiService(retrofit: Retrofit): WeatherApiService =
         retrofit.create(WeatherApiService::class.java)
+
+    @Provides
+    fun providesWeatherApiRepository(weatherApiService: WeatherApiService) =
+        WeatherApiRepository(weatherApiService)
 
 }
