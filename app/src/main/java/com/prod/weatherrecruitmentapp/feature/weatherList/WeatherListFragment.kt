@@ -10,12 +10,14 @@ import android.widget.Toast
 import com.prod.weatherrecruitmentapp.R
 import com.prod.weatherrecruitmentapp.datasource.remotedatasource.datasource.RetrofitClient
 import com.prod.weatherrecruitmentapp.datasource.remotedatasource.datasource.WeatherApiService
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.await
 import retrofit2.awaitResponse
 
+@AndroidEntryPoint
 class WeatherListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
