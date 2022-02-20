@@ -4,29 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.weatherList.WeatherListFragment"
-    android:background="@color/grey_blue">
+    android:background="@color/grey_blue"
+    tools:context=".feature.weatherList.WeatherListFragment">
 
     <EditText
         android:id="@+id/editTextSearchingBar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="London"
+        android:layout_marginTop="8dp"
         android:hint="Please type the city"
-        android:layout_margin="15dp"
         android:textAlignment="textStart"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/button_citysearch"
+        app:layout_constraintEnd_toStartOf="@+id/button_citysearch"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="London" />
+
+    <Button
+        android:id="@+id/button_citysearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editTextSearchingBar"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_weatherlist"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/editTextSearchingBar"
+        app:layout_constraintEnd_toEndOf="@+id/button_citysearch"
         app:layout_constraintStart_toStartOf="@+id/editTextSearchingBar"
         app:layout_constraintTop_toBottomOf="@+id/editTextSearchingBar" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
