@@ -7,10 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.prod.weatherrecruitmentapp.R
 import com.prod.weatherrecruitmentapp.datasource.remotedatasource.datasource.RetrofitClient
 import com.prod.weatherrecruitmentapp.datasource.remotedatasource.datasource.WeatherApiService
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_weather_list.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -19,11 +22,7 @@ import retrofit2.awaitResponse
 
 @AndroidEntryPoint
 class WeatherListFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private val weatherListViewModel: WeatherListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +35,17 @@ class WeatherListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val retrofitInstance = RetrofitClient.retrofitInstance.create(WeatherApiService::class.java)
+
+        button_citysearch.setOnClickListener {
+            weatherListViewModel.setSearchedCityData(editTextSearchingBar.text.toString())
+        }
+
+        weatherListViewModel.getSearchedCityData().observe(viewLifecycleOwner, {
+            if (!it.isValid){
+                Toast.makeText(context, getString(it.errorMessage!!), Toast.LENGTH_SHORT).show()
+            }
+
+        })
 
         GlobalScope.launch(Dispatchers.IO) {
             val decodedCityData =

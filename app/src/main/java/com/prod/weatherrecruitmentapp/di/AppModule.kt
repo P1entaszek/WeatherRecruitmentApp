@@ -1,11 +1,11 @@
 package com.prod.weatherrecruitmentapp.di
 
-import com.prod.weatherrecruitmentapp.datasource.remotedatasource.datasource.RetrofitClient
 import com.prod.weatherrecruitmentapp.datasource.remotedatasource.datasource.WeatherApiService
+import com.prod.weatherrecruitmentapp.feature.weatherList.WeatherListViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.components.ActivityRetainedComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  * Created by Piotr Jaszczurowski on 20.02.2022
  */
 @Module
-@InstallIn(ActivityComponent::class)
+@InstallIn(ActivityRetainedComponent::class)
 object AppModule {
     private const val openWeatherMapApi = "https://api.openweathermap.org/"
 
@@ -28,5 +28,4 @@ object AppModule {
     fun provideWeatherApiService(retrofit: Retrofit): WeatherApiService =
         retrofit.create(WeatherApiService::class.java)
 
-    
 }
