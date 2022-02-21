@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="3dp">
+
+    <TextView
+        android:id="@+id/tvValueDayDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        tools:text="21.03.2022"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tvlabelMorningTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/morning_temperature"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvValueDayDate" />
+
+    <TextView
+        android:id="@+id/tvValueMorningTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvlabelMorningTemp"
+        app:layout_constraintStart_toEndOf="@+id/tvlabelMorningTemp"
+        app:layout_constraintTop_toTopOf="@+id/tvlabelMorningTemp"
+        tools:text="5.13" />
+
+    <TextView
+        android:id="@+id/tvlabelDayTemp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/day_temperature"
+        app:layout_constraintEnd_toEndOf="@+id/tvlabelMorningTemp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvlabelMorningTemp" />
+
+    <TextView
+        android:id="@+id/tvValueDayTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvlabelDayTemp"
+        app:layout_constraintEnd_toEndOf="@+id/tvValueMorningTemp"
+        app:layout_constraintStart_toEndOf="@+id/tvlabelDayTemp"
+        app:layout_constraintTop_toTopOf="@+id/tvlabelDayTemp"
+        tools:text="11.2" />
+
+    <TextView
+        android:id="@+id/tvlabelNightTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/night_temperature"
+        app:layout_constraintStart_toEndOf="@+id/tvValueMorningTemp"
+        app:layout_constraintTop_toTopOf="@+id/tvlabelMorningTemp" />
+
+    <TextView
+        android:id="@+id/tvValueNightTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvlabelNightTemp"
+        app:layout_constraintStart_toEndOf="@+id/tvlabelNightTemp"
+        app:layout_constraintTop_toTopOf="@+id/tvlabelNightTemp"
+        tools:text="6.13" />
+
+    <TextView
+        android:id="@+id/tvlabelHumidity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/humidity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvlabelNightTemp"
+        app:layout_constraintStart_toEndOf="@+id/tvValueDayTemp"
+        app:layout_constraintTop_toBottomOf="@+id/tvlabelNightTemp" />
+
+    <TextView
+        android:id="@+id/tvValueHumidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/tvlabelHumidity"
+        app:layout_constraintStart_toStartOf="@+id/tvValueNightTemp"
+        app:layout_constraintTop_toTopOf="@+id/tvlabelHumidity"
+        tools:text="15.2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

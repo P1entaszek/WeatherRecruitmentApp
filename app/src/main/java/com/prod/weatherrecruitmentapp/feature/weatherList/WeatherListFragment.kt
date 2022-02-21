@@ -7,30 +7,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.prod.weatherrecruitmentapp.R
-import com.prod.weatherrecruitmentapp.datasource.remotedatasource.WeatherApiService
+import com.prod.weatherrecruitmentapp.feature.weatherList.listadapter.DailyWeatherListAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_weather_list.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.android.synthetic.main.fragment_weather.*
 
 @AndroidEntryPoint
 class WeatherListFragment : Fragment() {
     private val weatherListViewModel: WeatherListViewModel by viewModels()
+    private lateinit var linearLayoutManager: LinearLayoutManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_weather_list, container, false)
+        return inflater.inflate(R.layout.fragment_weather, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         button_citysearch.setOnClickListener {
-            weatherListViewModel.setValidationData(editTextSearchingBar.text.toString())
+            linearLayoutManager = LinearLayoutManager(context)
+            recyclerview_weatherlist.layoutManager = linearLayoutManager
+
+            weatherListViewModel.setValidationData(editTextSearchingBar.text.toString().trim())
         }
 
         weatherListViewModel.getValidationData().observe(viewLifecycleOwner, { validatedData ->
@@ -39,19 +40,26 @@ class WeatherListFragment : Fragment() {
                     .show()
             } else {
                 weatherListViewModel.setSearchedCityData(validatedData.city)
-
             }
         })
 
         weatherListViewModel.getLatLng().observe(viewLifecycleOwner, { latlng ->
             weatherListViewModel.searchWeatherByLatLng(latlng)
-
         })
 
         weatherListViewModel.getWeatherDataList().observe(viewLifecycleOwner, { weatherDataList ->
-            //TODO Zrobic adapter do wyswietlania listy i wrzucic dane ze zwrotki
-            val list = weatherDataList.take(5)
-            weatherDataList.get(0).clouds
+            val weatherData = weatherDataList.take(5)
+            val adapter = DailyWeatherListAdapter(weatherData)
+            recyclerview_weatherlist.adapter = adapter
+            weatherListViewModel.calculateTemperatures(weatherData)
+        })
+
+        weatherListViewModel.getCalculatedTemperatures().observe(viewLifecycleOwner, {  calculatedTemperatures ->
+            calcTempLayout.visibility = View.VISIBLE
+            tvValueMinTemp.text = calculatedTemperatures.minTemperature
+            tvValueMaxTemp.text = calculatedTemperatures.maxTemperature
+            tvValueMeanTemp.text = calculatedTemperatures.meanTemperature
+            tvValueModeTemp.text = calculatedTemperatures.modeTemperature
         })
     }
 }
