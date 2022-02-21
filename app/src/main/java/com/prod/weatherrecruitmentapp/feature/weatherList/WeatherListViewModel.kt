@@ -53,26 +53,7 @@ class WeatherListViewModel @Inject constructor(private val weatherApiRepository:
     fun getWeatherDataList() = weatherDataList
 
     fun calculateTemperatures(weatherDataList: List<DailyWeather>) {
-        val temperatureList: MutableList<Double> = ArrayList()
-        weatherDataList.forEach { dailyWeather ->
-            run {
-                temperatureList.add(dailyWeather.temp!!.day!!)
-                temperatureList.add(dailyWeather.temp!!.morn!!)
-                temperatureList.add(dailyWeather.temp!!.night!!)
-            }
-        }
-
-        val minTemperature = roundValueToOneDecimal(temperatureList.minOrNull())
-        val maxTemperature = roundValueToOneDecimal(temperatureList.maxOrNull())
-        val meanTemperature = roundValueToOneDecimal(temperatureList.average())
-        val modeTemperature = getModes(temperatureList)?.let { formatModesToString(it) }
-
-        val calculatedTemperatures = CalculatedTemperatures(
-            minTemperature.toString(),
-            maxTemperature.toString(),
-            meanTemperature.toString(),
-            modeTemperature.toString()
-        )
+        val calculatedTemperatures = TemperatureCalculations(weatherDataList).getCalculatedTempetures()
         this.calculatedTemperatures.postValue(calculatedTemperatures)
     }
 
