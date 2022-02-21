@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pastel_green"
+    tools:context=".feature.weatherList.WeatherListFragment">
+
+    <EditText
+        android:id="@+id/editTextSearchingBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:hint="Please type the city"
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toBottomOf="@+id/button_citysearch"
+        app:layout_constraintEnd_toStartOf="@+id/button_citysearch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="London" />
+
+    <Button
+        android:id="@+id/button_citysearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Search"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="8dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_weatherlist"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/dark_green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/button_citysearch"
+        app:layout_constraintStart_toStartOf="@+id/editTextSearchingBar"
+        app:layout_constraintTop_toBottomOf="@+id/calcTempLayout"
+        tools:listitem="@layout/daily_weather_item" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/calcTempLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/dark_green"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerview_weatherlist"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/recyclerview_weatherlist"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSearchingBar">
+
+        <TextView
+            android:id="@+id/tvLabelMinTemp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/min_temperature"
+            app:layout_constraintEnd_toEndOf="@+id/tvLabelMeanTemp"
+            app:layout_constraintStart_toStartOf="@+id/tvLabelMeanTemp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvValueMinTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/tvLabelMeanTemp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="13.4" />
+
+        <TextView
+            android:id="@+id/tvLabelMaxTemp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:text="@string/max_temperature"
+            app:layout_constraintEnd_toEndOf="@+id/tvLabelModeTemp"
+            app:layout_constraintStart_toEndOf="@+id/tvValueMinTemp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvValueMaxTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/tvLabelMaxTemp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="12.7" />
+
+        <TextView
+            android:id="@+id/tvLabelMeanTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/mean_temperature"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLabelMinTemp" />
+
+        <TextView
+            android:id="@+id/tvValueMeanTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvLabelMeanTemp"
+            app:layout_constraintStart_toEndOf="@+id/tvLabelMeanTemp"
+            app:layout_constraintTop_toTopOf="@+id/tvLabelMeanTemp"
+            tools:text="14.5" />
+
+        <TextView
+            android:id="@+id/tvLabelModeTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:text="@string/mode_temperature"
+            app:layout_constraintStart_toEndOf="@+id/tvValueMeanTemp"
+            app:layout_constraintTop_toTopOf="@+id/tvLabelMeanTemp" />
+
+        <TextView
+            android:id="@+id/tvValueModeTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvLabelModeTemp"
+            app:layout_constraintStart_toEndOf="@+id/tvLabelModeTemp"
+            app:layout_constraintTop_toTopOf="@+id/tvLabelModeTemp"
+            tools:text="12.9" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

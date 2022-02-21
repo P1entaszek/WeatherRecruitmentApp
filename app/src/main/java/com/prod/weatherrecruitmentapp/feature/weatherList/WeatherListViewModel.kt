@@ -3,12 +3,12 @@ package com.prod.weatherrecruitmentapp.feature.weatherList
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.prod.weatherrecruitmentapp.common.roundValueToOneDecimal
+import com.prod.weatherrecruitmentapp.datasource.remotedatasource.model.CalculatedTemperatures
 import com.prod.weatherrecruitmentapp.datasource.remotedatasource.model.DailyWeather
-import com.prod.weatherrecruitmentapp.datasource.remotedatasource.model.WeatherData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -20,6 +20,7 @@ class WeatherListViewModel @Inject constructor(private val weatherApiRepository:
     private val latLngPair = MutableLiveData<Pair<Double, Double>>()
     private val searchedCity = MutableLiveData<SearchedCity>()
     private val weatherDataList = MutableLiveData<ArrayList<DailyWeather>>()
+    private val calculatedTemperatures = MutableLiveData<CalculatedTemperatures>()
 
     fun setValidationData(city: String) {
         searchedCity.value = SearchedCity(city)
@@ -48,4 +49,31 @@ class WeatherListViewModel @Inject constructor(private val weatherApiRepository:
     }
 
     fun getWeatherDataList() = weatherDataList
+
+    fun calculateTemperatures(weatherDataList: List<DailyWeather>) {
+        val temperatureList: MutableList<Double> = ArrayList()
+        weatherDataList.forEach { dailyWeather ->
+            run {
+                temperatureList.add(dailyWeather.temp!!.day!!)
+                temperatureList.add(dailyWeather.temp!!.morn!!)
+                temperatureList.add(dailyWeather.temp!!.night!!)
+            }
+        }
+
+        val minTemperature = roundValueToOneDecimal(temperatureList.minOrNull())
+        val maxTemperature = roundValueToOneDecimal(temperatureList.maxOrNull())
+        val meanTemperature = roundValueToOneDecimal(temperatureList.average())
+        val modeTemperature = roundValueToOneDecimal(temperatureList.average())
+
+        val calculatedTemperatures = CalculatedTemperatures(
+            minTemperature.toString(),
+            maxTemperature.toString(),
+            meanTemperature.toString(),
+            modeTemperature.toString()
+        )
+        this.calculatedTemperatures.postValue(calculatedTemperatures)
+    }
+
+    fun getCalculatedTemperatures() = calculatedTemperatures
+
 }
