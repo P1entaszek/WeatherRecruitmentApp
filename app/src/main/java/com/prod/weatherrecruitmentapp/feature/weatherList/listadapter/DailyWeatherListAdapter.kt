@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.prod.weatherrecruitmentapp.R
-import com.prod.weatherrecruitmentapp.common.formatTimestampToTime
+import com.prod.weatherrecruitmentapp.common.getDaysListFromToday
 import com.prod.weatherrecruitmentapp.datasource.remotedatasource.model.DailyWeather
 import kotlinx.android.synthetic.main.daily_weather_item.view.*
 
@@ -23,7 +23,8 @@ class DailyWeatherListAdapter(private val dailyWeatherList: List<DailyWeather>) 
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val dayWeather = dailyWeatherList.get(position)
-        holder.itemView.tvValueDayDate.text = formatTimestampToTime(dayWeather.dt!!)
+        val date = getDaysListFromToday(dailyWeatherList.size).get(position)
+        holder.itemView.tvValueDayDate.text = date
         holder.itemView.tvValueMorningTemp.text = dayWeather.temp?.morn.toString()
         holder.itemView.tvValueNightTemp.text = dayWeather.temp?.night.toString()
         holder.itemView.tvValueDayTemp.text = dayWeather.temp?.day.toString()

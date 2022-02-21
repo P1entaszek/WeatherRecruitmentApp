@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName
  */
 data class DailyWeather(
 
-    @SerializedName("dt") var dt: Double? = null,
     @SerializedName("temp") var temp: Temp? = Temp(),
     @SerializedName("humidity") var humidity: Double? = null
 )
