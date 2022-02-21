@@ -38,20 +38,19 @@ class WeatherListFragment : Fragment() {
                 Toast.makeText(context, getString(validatedData.errorMessage!!), Toast.LENGTH_SHORT)
                     .show()
             } else {
-                GlobalScope.launch(Dispatchers.IO) {
-                    weatherListViewModel.setSearchedCityData(validatedData.city)
-                }
+                weatherListViewModel.setSearchedCityData(validatedData.city)
+
             }
         })
 
         weatherListViewModel.getLatLng().observe(viewLifecycleOwner, { latlng ->
-            GlobalScope.launch(Dispatchers.IO) {
-                weatherListViewModel.searchWeatherByLatLng(latlng)
-            }
+            weatherListViewModel.searchWeatherByLatLng(latlng)
+
         })
 
         weatherListViewModel.getWeatherDataList().observe(viewLifecycleOwner, { weatherDataList ->
             //TODO Zrobic adapter do wyswietlania listy i wrzucic dane ze zwrotki
+            val list = weatherDataList.take(5)
             weatherDataList.get(0).clouds
         })
     }

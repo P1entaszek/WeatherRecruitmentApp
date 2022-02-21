@@ -29,7 +29,7 @@ object AppModule {
         retrofit.create(WeatherApiService::class.java)
 
     @Provides
-    fun providesWeatherApiRepository(weatherApiService: WeatherApiService) =
+    fun provideWeatherApiRepository(weatherApiService: WeatherApiService) =
         WeatherApiRepository(weatherApiService)
 
 }
