@@ -10,7 +10,6 @@ data class DecodedCity(
 	@SerializedName("local_names") var localNames: LocalNames? = LocalNames(),
 	@SerializedName("lat") var lat: Double? = null,
 	@SerializedName("lon") var lng: Double? = null,
-	@SerializedName("country") var country: String? = null,
-	@SerializedName("state") var state: String? = null
+	@SerializedName("country") var country: String? = null
 
 )
