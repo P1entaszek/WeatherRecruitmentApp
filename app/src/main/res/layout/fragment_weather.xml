@@ -14,7 +14,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/border"
-        android:hint="Please type the city"
+        android:hint="@string/please_type_the_city"
         android:textAlignment="textStart"
         app:layout_constraintBottom_toBottomOf="@+id/button_citysearch"
         app:layout_constraintEnd_toStartOf="@+id/button_citysearch"

@@ -10,4 +10,5 @@
     <string name="max_temperature">Max Temperature</string>
     <string name="mean_temperature">Mean temperature</string>
     <string name="mode_temperature">Mode temperature</string>
+    <string name="please_type_the_city">Please type the city</string>
 </resources>
