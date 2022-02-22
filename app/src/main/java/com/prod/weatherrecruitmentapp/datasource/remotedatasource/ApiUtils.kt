@@ -8,7 +8,7 @@ import retrofit2.Response
  * Created by Piotr Jaszczurowski on 22.02.2022
  */
 
-fun<T> result(call: suspend ()-> Response<T?>): Flow<ResponseData<T?>> = flow {
+fun<T> result(call: suspend ()-> Response<T?>): Flow<ResponseData<T>> = flow {
     try {
         val call = call()
         call.let {
