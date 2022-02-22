@@ -11,4 +11,7 @@
     <string name="mean_temperature">Mean temperature</string>
     <string name="mode_temperature">Mode temperature</string>
     <string name="please_type_the_city">Please type the city</string>
+    <string name="something_went_wrong">Coś poszło nie tak</string>
+    <string name="cannot_find_the_city">Nie znaleziono miasta</string>
+    <string name="cannot_find_weather_data">Nie znaleziono danych pogodowych</string>
 </resources>

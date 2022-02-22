@@ -54,23 +54,23 @@ class WeatherListFragment : Fragment() {
             weatherListViewModel.calculateTemperatures(weatherData)
         })
 
-        weatherListViewModel.getCalculatedTemperatures().observe(viewLifecycleOwner, {  calculatedTemperatures ->
-            calcTempLayout.visibility = View.VISIBLE
-            tvValueMinTemp.text = calculatedTemperatures.minTemperature
-            tvValueMaxTemp.text = calculatedTemperatures.maxTemperature
-            tvValueMeanTemp.text = calculatedTemperatures.meanTemperature
-            tvValueModeTemp.text = calculatedTemperatures.modeTemperature
+        weatherListViewModel.getCalculatedTemperatures()
+            .observe(viewLifecycleOwner, { calculatedTemperatures ->
+                calcTempLayout.visibility = View.VISIBLE
+                tvValueMinTemp.text = calculatedTemperatures.minTemperature
+                tvValueMaxTemp.text = calculatedTemperatures.maxTemperature
+                tvValueMeanTemp.text = calculatedTemperatures.meanTemperature
+                tvValueModeTemp.text = calculatedTemperatures.modeTemperature
+            })
+
+        weatherListViewModel.getErrorMessage().observe(viewLifecycleOwner, { error ->
+            run {
+                Toast.makeText(context, getString(error), Toast.LENGTH_SHORT).show()
+            }
         })
-
-    weatherListViewModel.getErrorMessage().observe(viewLifecycleOwner, { error ->
-        run {
-            Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
-        }
-
-    })
     }
 
-    companion object{
+    companion object {
         const val weatherDays = 5
     }
 }

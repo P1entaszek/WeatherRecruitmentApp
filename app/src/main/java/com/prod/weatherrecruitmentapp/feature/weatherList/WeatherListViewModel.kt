@@ -1,8 +1,10 @@
 package com.prod.weatherrecruitmentapp.feature.weatherList
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.prod.weatherrecruitmentapp.R
 import com.prod.weatherrecruitmentapp.datasource.remotedatasource.ResponseData
 import com.prod.weatherrecruitmentapp.datasource.remotedatasource.WeatherApiRepository
 import com.prod.weatherrecruitmentapp.feature.weatherList.model.CalculatedTemperatures
@@ -23,7 +25,7 @@ class WeatherListViewModel @Inject constructor(private val weatherApiRepository:
     private val searchedCity = MutableLiveData<SearchedCity>()
     private val weatherDataList = MutableLiveData<ArrayList<DailyWeather>>()
     private val calculatedTemperatures = MutableLiveData<CalculatedTemperatures>()
-    private val apiError = MutableLiveData<String>()
+    private val apiError = MutableLiveData<Int>()
 
     fun setValidationData(city: String) {
         searchedCity.value = SearchedCity(city)
@@ -38,13 +40,19 @@ class WeatherListViewModel @Inject constructor(private val weatherApiRepository:
                 run {
                     when (responseData) {
                         is ResponseData.Succes -> {
-                            val firstCity = responseData.data?.first()
-                            if (firstCity != null) {
-                                latLngPair.postValue(Pair(firstCity.lat!!, firstCity.lng!!))
+                            if (responseData.httpCode == 200) {
+                                Log.d(TAG, "Kod zwrotki z serwera: $responseData.httpCode")
+                                val firstCity = responseData.data?.first()
+                                if (firstCity != null) {
+                                    latLngPair.postValue(Pair(firstCity.lat!!, firstCity.lng!!))
+                                }
+                            } else {
+                                apiError.postValue(R.string.something_went_wrong)
                             }
                         }
                         is ResponseData.Error -> {
-                            apiError.postValue(responseData.errorMessage)
+                            apiError.postValue(R.string.cannot_find_the_city)
+                            Log.d(TAG, responseData.errorMessage)
                         }
                     }
                 }
@@ -60,12 +68,19 @@ class WeatherListViewModel @Inject constructor(private val weatherApiRepository:
                 val response = weatherApiRepository.getWeatherData(latlng.first, latlng.second)
                 response.collect { responseData ->
                     run {
+
                         when (responseData) {
                             is ResponseData.Succes -> {
-                                weatherDataList.postValue(responseData.data!!.dailyWeather)
+                                Log.d(TAG, "Kod zwrotki z serwera: $responseData.httpCode")
+                                if (responseData.httpCode == 200) {
+                                    weatherDataList.postValue(responseData.data!!.dailyWeather)
+                                } else {
+                                    apiError.postValue(R.string.something_went_wrong)
+                                }
                             }
                             is ResponseData.Error -> {
-                                apiError.postValue(responseData.errorMessage)
+                                apiError.postValue(R.string.cannot_find_weather_data)
+                                Log.d(TAG, responseData.errorMessage)
                             }
                         }
                     }
@@ -77,7 +92,8 @@ class WeatherListViewModel @Inject constructor(private val weatherApiRepository:
     fun getWeatherDataList() = weatherDataList
 
     fun calculateTemperatures(weatherDataList: List<DailyWeather>) {
-        val calculatedTemperatures = TemperatureCalculations(weatherDataList).getCalculatedTempetures()
+        val calculatedTemperatures =
+            TemperatureCalculations(weatherDataList).getCalculatedTempetures()
         this.calculatedTemperatures.postValue(calculatedTemperatures)
     }
 
@@ -85,4 +101,7 @@ class WeatherListViewModel @Inject constructor(private val weatherApiRepository:
 
     fun getErrorMessage() = apiError
 
+    companion object {
+        const val TAG = "WeatherListViewModel"
+    }
 }
