@@ -9,5 +9,5 @@
         android:id="@+id/weatherListFragment"
         android:name="com.prod.weatherrecruitmentapp.feature.weatherList.WeatherListFragment"
         android:label="fragment_weather_list"
-        tools:layout="@layout/fragment_weather_list" />
+        tools:layout="@layout/fragment_weather" />
 </navigation>

@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name">WeatherRecruitmentApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="errorMessage">Type the city</string>
+    <string name="morning_temperature">Morning temperature</string>
+    <string name="day_temperature">Day temperature</string>
+    <string name="night_temperature">Night temperature</string>
+    <string name="humidity">Humidity</string>
+    <string name="min_temperature">Min temperature</string>
+    <string name="max_temperature">Max Temperature</string>
+    <string name="mean_temperature">Mean temperature</string>
+    <string name="mode_temperature">Mode temperature</string>
+    <string name="please_type_the_city">Please type the city</string>
+    <string name="something_went_wrong">Coś poszło nie tak</string>
+    <string name="cannot_find_the_city">Nie znaleziono miasta</string>
+    <string name="cannot_find_weather_data">Nie znaleziono danych pogodowych</string>
 </resources>
