@@ -3,9 +3,9 @@
 This is an application about showing weather data for 5 days from today.
 
 ## Technology stack
+Application was written in Kotlin language.
 
 In this application i used below libraries:
-- Kotlin
 - Retrofit2
 - Courutine
 - Flow 
