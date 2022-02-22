@@ -48,7 +48,7 @@ class WeatherListFragment : Fragment() {
         })
 
         weatherListViewModel.getWeatherDataList().observe(viewLifecycleOwner, { weatherDataList ->
-            val weatherData = weatherDataList.take(5)
+            val weatherData = weatherDataList.take(weatherDays)
             val adapter = DailyWeatherListAdapter(weatherData)
             recyclerview_weatherlist.adapter = adapter
             weatherListViewModel.calculateTemperatures(weatherData)
@@ -61,5 +61,16 @@ class WeatherListFragment : Fragment() {
             tvValueMeanTemp.text = calculatedTemperatures.meanTemperature
             tvValueModeTemp.text = calculatedTemperatures.modeTemperature
         })
+
+    weatherListViewModel.getErrorMessage().observe(viewLifecycleOwner, { error ->
+        run {
+            Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+        }
+
+    })
+    }
+
+    companion object{
+        const val weatherDays = 5
     }
 }

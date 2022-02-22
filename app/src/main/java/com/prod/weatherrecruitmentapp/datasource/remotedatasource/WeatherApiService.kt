@@ -25,5 +25,5 @@ interface WeatherApiService {
         @Query("q") cityName: String?,
         @Query("limit") limit: String?,
         @Query("appid") appID: String?
-    ): Response<Array<DecodedCity?>>
+    ): Response<Array<DecodedCity?>?>
 }

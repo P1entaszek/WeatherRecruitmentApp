@@ -3,11 +3,13 @@ package com.prod.weatherrecruitmentapp.feature.weatherList
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.prod.weatherrecruitmentapp.datasource.remotedatasource.ResponseData
 import com.prod.weatherrecruitmentapp.datasource.remotedatasource.WeatherApiRepository
 import com.prod.weatherrecruitmentapp.feature.weatherList.model.CalculatedTemperatures
 import com.prod.weatherrecruitmentapp.datasource.remotedatasource.model.DailyWeather
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,6 +23,7 @@ class WeatherListViewModel @Inject constructor(private val weatherApiRepository:
     private val searchedCity = MutableLiveData<SearchedCity>()
     private val weatherDataList = MutableLiveData<ArrayList<DailyWeather>>()
     private val calculatedTemperatures = MutableLiveData<CalculatedTemperatures>()
+    private val apiError = MutableLiveData<String>()
 
     fun setValidationData(city: String) {
         searchedCity.value = SearchedCity(city)
@@ -31,8 +34,20 @@ class WeatherListViewModel @Inject constructor(private val weatherApiRepository:
     fun setSearchedCityData(city: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val response = weatherApiRepository.getCityLatLng(city)
-            if (response != null) {
-                latLngPair.postValue(Pair(response.lat!!, response.lng!!))
+            response.collect { responseData ->
+                run {
+                    when (responseData) {
+                        is ResponseData.Succes -> {
+                            val firstCity = responseData.data?.first()
+                            if (firstCity != null) {
+                                latLngPair.postValue(Pair(firstCity.lat!!, firstCity.lng!!))
+                            }
+                        }
+                        is ResponseData.Error -> {
+                            apiError.postValue(responseData.errorMessage)
+                        }
+                    }
+                }
             }
         }
     }
@@ -43,7 +58,18 @@ class WeatherListViewModel @Inject constructor(private val weatherApiRepository:
         viewModelScope.launch(Dispatchers.IO) {
             if (latlng != null) {
                 val response = weatherApiRepository.getWeatherData(latlng.first, latlng.second)
-                weatherDataList.postValue(response)
+                response.collect { responseData ->
+                    run {
+                        when (responseData) {
+                            is ResponseData.Succes -> {
+                                weatherDataList.postValue(responseData.data!!.dailyWeather)
+                            }
+                            is ResponseData.Error -> {
+                                apiError.postValue(responseData.errorMessage)
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -56,5 +82,7 @@ class WeatherListViewModel @Inject constructor(private val weatherApiRepository:
     }
 
     fun getCalculatedTemperatures() = calculatedTemperatures
+
+    fun getErrorMessage() = apiError
 
 }
