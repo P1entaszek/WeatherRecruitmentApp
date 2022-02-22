@@ -13,7 +13,7 @@ fun<T> result(call: suspend ()-> Response<T?>): Flow<ResponseData<T>> = flow {
         val call = call()
         call.let {
             if(call.isSuccessful){
-                emit(ResponseData.Succes(it.body()))
+                emit(ResponseData.Succes(it.body(), it.code()))
             }
             else{
                 call.errorBody()?.let {error ->
