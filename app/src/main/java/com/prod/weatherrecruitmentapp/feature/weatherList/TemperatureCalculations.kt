@@ -3,7 +3,7 @@ package com.prod.weatherrecruitmentapp.feature.weatherList
 import com.prod.weatherrecruitmentapp.common.formatModesToString
 import com.prod.weatherrecruitmentapp.common.getModes
 import com.prod.weatherrecruitmentapp.common.roundValueToOneDecimal
-import com.prod.weatherrecruitmentapp.datasource.remotedatasource.model.CalculatedTemperatures
+import com.prod.weatherrecruitmentapp.feature.weatherList.model.CalculatedTemperatures
 import com.prod.weatherrecruitmentapp.datasource.remotedatasource.model.DailyWeather
 
 /**

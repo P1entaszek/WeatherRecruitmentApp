@@ -1,4 +1,4 @@
-package com.prod.weatherrecruitmentapp.datasource.remotedatasource.model
+package com.prod.weatherrecruitmentapp.feature.weatherList.model
 
 /**
  * Created by Piotr Jaszczurowski on 21.02.2022

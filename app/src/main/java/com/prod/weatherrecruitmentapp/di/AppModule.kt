@@ -2,7 +2,7 @@ package com.prod.weatherrecruitmentapp.di
 
 import com.prod.weatherrecruitmentapp.datasource.remotedatasource.WeatherApiService
 import com.prod.weatherrecruitmentapp.Config.openWeatherMapApi
-import com.prod.weatherrecruitmentapp.feature.weatherList.WeatherApiRepository
+import com.prod.weatherrecruitmentapp.datasource.remotedatasource.WeatherApiRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
