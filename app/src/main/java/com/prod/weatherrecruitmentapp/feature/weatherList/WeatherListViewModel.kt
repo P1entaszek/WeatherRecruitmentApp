@@ -3,10 +3,8 @@ package com.prod.weatherrecruitmentapp.feature.weatherList
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.prod.weatherrecruitmentapp.common.formatModesToString
-import com.prod.weatherrecruitmentapp.common.getModes
-import com.prod.weatherrecruitmentapp.common.roundValueToOneDecimal
-import com.prod.weatherrecruitmentapp.datasource.remotedatasource.model.CalculatedTemperatures
+import com.prod.weatherrecruitmentapp.datasource.remotedatasource.WeatherApiRepository
+import com.prod.weatherrecruitmentapp.feature.weatherList.model.CalculatedTemperatures
 import com.prod.weatherrecruitmentapp.datasource.remotedatasource.model.DailyWeather
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

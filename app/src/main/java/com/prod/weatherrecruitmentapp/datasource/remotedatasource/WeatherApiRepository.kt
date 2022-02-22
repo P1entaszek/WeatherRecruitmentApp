@@ -1,7 +1,6 @@
-package com.prod.weatherrecruitmentapp.feature.weatherList
+package com.prod.weatherrecruitmentapp.datasource.remotedatasource
 
 import com.prod.weatherrecruitmentapp.Config
-import com.prod.weatherrecruitmentapp.datasource.remotedatasource.WeatherApiService
 import com.prod.weatherrecruitmentapp.datasource.remotedatasource.model.DailyWeather
 import com.prod.weatherrecruitmentapp.datasource.remotedatasource.model.DecodedCity
 import javax.inject.Inject
